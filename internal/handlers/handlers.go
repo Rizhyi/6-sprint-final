@@ -62,6 +62,7 @@ func HandlerUpload(res http.ResponseWriter, req *http.Request) {
 
 	// Result
 	res.Header().Set("Content-Type", "text/plain")
+	fmt.Fprintf(res, "Исходная строка:\n%s\n", string(buf))
 	fmt.Fprintf(res, "Конвертированная строка:\n%s\n", convertedStr)
 	fmt.Fprintf(res, "Результат сохранён в файле: %s\n", outputFileName)
 }

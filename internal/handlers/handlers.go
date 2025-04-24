@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 	"os"
@@ -52,7 +53,9 @@ func HandlerUpload(res http.ResponseWriter, req *http.Request) {
 	defer outputFile.Close()
 
 	// Writing converted data to file
-	if _, err := outputFile.Write([]byte(convertedStr)); err != nil {
+	writeData := bytes.Join([][]byte{buf, []byte(convertedStr)}, []byte(" -ПЕРЕВОД- "))
+
+	if _, err := outputFile.Write(writeData); err != nil {
 		http.Error(res, "Не удалось записать данные в файл", http.StatusInternalServerError)
 		return
 	}
